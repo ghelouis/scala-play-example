@@ -8,8 +8,8 @@ import play.api.mvc._
  * This controller creates an `Action` to handle HTTP requests to the
  * application's home page.
  */
-@Singleton
 @Api("Main")
+@Singleton
 class HomeController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
 
   /**
@@ -22,7 +22,7 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
   def index() = Action { implicit request: Request[AnyContent] =>
     Ok(views.html.index())
   }
-  
+
   def explore() = Action { implicit request: Request[AnyContent] =>
     Ok(views.html.explore())
   }
@@ -33,7 +33,7 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
 
   @ApiResponses(Array(
     new ApiResponse(code = 200, message = "Success!"),
-    new ApiResponse(code = 404, message = "Missing parameter")))
+    new ApiResponse(code = 400, message = "Missing parameter")))
   def hello(@ApiParam(value = "Name of the person to greet") name: String) = Action { implicit request: Request[AnyContent] =>
     Ok(views.html.hello(name))
   }
