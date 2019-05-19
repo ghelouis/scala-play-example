@@ -1,21 +1,22 @@
 package service
 
-import java.util.UUID
+import java.util.{Date, UUID}
 
-import dto.{User, UserId}
+import dto.{SimpleUser, User, UserId}
 import javax.inject.Inject
 import repository.UserRepository
 
 class UserService @Inject()(userRepository: UserRepository) {
 
-  def createUser(user: User): UserId = {
+  def createUser(user: SimpleUser): UserId = {
     val id = UUID.randomUUID()
-    userRepository.save(dao.User(id, user.name, user.age))
+    val creationDate = new Date()
+    userRepository.save(dao.User(id, user.name, user.age, creationDate))
     UserId(id.toString)
   }
 
-  def getUser(id: String): Option[User] = {
-    userRepository.get(UUID.fromString(id)) match {
+  def getUser(id: UUID): Option[User] = {
+    userRepository.get(id) match {
       case Some(user) => Some(toDto(user))
       case None => None
     }
@@ -26,6 +27,6 @@ class UserService @Inject()(userRepository: UserRepository) {
   }
 
   private def toDto(user: dao.User) = {
-    User(user.name, user.age)
+    User(user.id, user.name, user.age)
   }
 }

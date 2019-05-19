@@ -11,7 +11,7 @@ GET     /hello                              controllers.HomeController.hello(nam
 
 # Users controller
 POST    /users                              controllers.UserController.createUser
-GET     /users/:id                          controllers.UserController.getUser(id: String)
+GET     /users/:id                          controllers.UserController.getUser(id: java.util.UUID)
 GET     /users                              controllers.UserController.getUsers
 
 
