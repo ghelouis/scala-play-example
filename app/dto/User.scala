@@ -11,4 +11,4 @@ case class SimpleUser(name: String, age: Int)
 case class User(id: UUID, name: String, age: Int)
 
 @ApiModel
-case class UserId(id: String)
+case class UserId(id: UUID)

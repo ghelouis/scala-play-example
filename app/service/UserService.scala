@@ -12,7 +12,7 @@ class UserService @Inject()(userRepository: UserRepository) {
     val id = UUID.randomUUID()
     val creationDate = new Date()
     userRepository.save(dao.User(id, user.name, user.age, creationDate))
-    UserId(id.toString)
+    UserId(id)
   }
 
   def getUser(id: UUID): Option[User] = {

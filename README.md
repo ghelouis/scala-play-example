@@ -1,4 +1,4 @@
-# Scala Play/Swagger sample project
+# Scala Play sample project
 
 Template of a basic full-fledged Scala backend application. In particular:
 * a REST API self-documented with Swagger
@@ -10,7 +10,7 @@ Template of a basic full-fledged Scala backend application. In particular:
 * data transfer objects (DTO) for data shared between the controller and service layer
 * data access objects (DAO) for data shared between the service and the repository layer
 * dependency injection
-* unit tests
+* unit/integration tests
 
 ## Technologies
 * Language: Scala
@@ -21,6 +21,7 @@ Template of a basic full-fledged Scala backend application. In particular:
 * Build and run the project: `sbt run`
 * The server should then be accessible at <http://localhost:9000>
 * The API documentation (Swagger UI) can be found at <http://localhost:9000/docs/>
+* Run tests: `sbt test`
 
 ## Resources
 * Play: <https://developer.lightbend.com/start/?group=play&project=play-samples-play-scala-hello-world-tutorial>
