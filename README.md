@@ -1,4 +1,5 @@
 # Scala Play sample project
+[Try it here](https://scalaplayexample.herokuapp.com/docs/)
 
 Template of a basic full-fledged Scala backend application. In particular:
 * a REST API self-documented with Swagger
