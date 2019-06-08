@@ -2,31 +2,30 @@ package service
 
 import java.util.{Date, UUID}
 
-import dto.{SimpleUser, User, UserId}
+import dto.{SimpleUserDTO, UserDTO, UserIdDTO}
 import javax.inject.Inject
 import repository.UserRepository
 
-class UserService @Inject()(userRepository: UserRepository) {
+import scala.concurrent.{ExecutionContext, Future}
 
-  def createUser(user: SimpleUser): UserId = {
+class UserService @Inject()(userRepository: UserRepository, implicit val ec: ExecutionContext) {
+
+  def createUser(user: SimpleUserDTO): (Future[Int], UserIdDTO) = {
     val id = UUID.randomUUID()
     val creationDate = new Date()
-    userRepository.save(dao.User(id, user.name, user.age, creationDate))
-    UserId(id)
+    val futureResult = userRepository.save(dao.User(id, user.name, user.age, creationDate))
+    (futureResult, UserIdDTO(id))
   }
 
-  def getUser(id: UUID): Option[User] = {
-    userRepository.get(id) match {
-      case Some(user) => Some(toDto(user))
-      case None => None
-    }
+  def getUser(id: UUID): Future[Option[UserDTO]] = {
+    userRepository.get(id).map(maybeUser => maybeUser.map(toDto))
   }
 
-  def getUsers: Iterable[User] = {
-    userRepository.getAll.map(toDto)
+  def getUsers: Future[Seq[UserDTO]] = {
+    userRepository.getAll.map(users => users.map(toDto))
   }
 
   private def toDto(user: dao.User) = {
-    User(user.id, user.name, user.age)
+    UserDTO(user.id, user.name, user.age)
   }
 }

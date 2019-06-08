@@ -2,17 +2,19 @@ package controllers.tests
 
 import java.util.UUID
 
-import dto.User
+import dto.UserDTO
+import org.mockito.Mockito.when
 import org.scalatest.FlatSpec
 import org.scalatest.mockito.MockitoSugar
 import org.scalatestplus.play.guice.GuiceOneServerPerSuite
-import org.mockito.Mockito.{times, verify, when}
+import play.api.inject._
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.libs.json.{JsArray, JsValue, Json}
+import play.api.libs.json.{JsArray, Json}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import service.UserService
-import play.api.inject._
+
+import scala.concurrent.Future
 
 class UserControllerSpec extends FlatSpec with MockitoSugar with GuiceOneServerPerSuite {
 
@@ -60,8 +62,8 @@ class UserControllerSpec extends FlatSpec with MockitoSugar with GuiceOneServerP
     .build()
     val id = UUID.fromString("17B8C995-69F3-464C-95A2-31DEF704A371")
     val request = FakeRequest(GET, s"/users/$id")
-    val user = User(id, "Jon", 23)
-    when(userService.getUser(id)).thenReturn(Some(user))
+    val user = UserDTO(id, "Jon", 23)
+    when(userService.getUser(id)).thenReturn(Future.successful(Some(user)))
 
     // when
     val Some(result) = route(app, request)
@@ -81,9 +83,9 @@ class UserControllerSpec extends FlatSpec with MockitoSugar with GuiceOneServerP
       .bindings(bind[UserService] to userService)
       .build()
     val request = FakeRequest(GET, s"/users")
-    val jon = User(UUID.randomUUID(), "Jon", 23)
-    val dany = User(UUID.randomUUID(), "Daenerys", 23)
-    when(userService.getUsers).thenReturn(List(jon, dany))
+    val jon = UserDTO(UUID.randomUUID(), "Jon", 23)
+    val dany = UserDTO(UUID.randomUUID(), "Daenerys", 23)
+    when(userService.getUsers).thenReturn(Future.successful(List(jon, dany)))
 
     // when
     val Some(result) = route(app, request)
