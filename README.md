@@ -26,8 +26,8 @@ Template of a basic full-fledged Scala backend application. In particular:
 * Run tests: `sbt test`
 
 ## Versions
-* v1.0: mocked database (no H2/Slick)
-* v1.1: H2 in-memory database and Slick integration
+* [v1.1](https://github.com/ghelouis/scala-play-example/releases/tag/v1.1): H2 in-memory database and Slick integration
+* [v1.0](https://github.com/ghelouis/scala-play-example/releases/tag/v1.0): mocked database (no H2/Slick)
 
 ## Resources
 * Play: <https://developer.lightbend.com/start/?group=play&project=play-samples-play-scala-hello-world-tutorial>
