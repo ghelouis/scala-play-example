@@ -1,4 +1,7 @@
 # Scala Play sample project
+
+⚠️This project is out of date, would recommend looking at the official [Play Samples](https://github.com/playframework/play-samples)
+
 [Try it here](https://scalaplayexample.herokuapp.com/docs/)
 
 Template of a basic full-fledged Scala backend application. In particular:
